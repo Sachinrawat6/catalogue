@@ -14,6 +14,10 @@ import generateAjioPlazosAndPantsListing from "./ajio/AjioPlazosAndPants"
 import generateAjioShurgsListing from "./ajio/AjioShruges"
 import { generateTatacliqListing } from "./tatacliq/TatacliqListing";
 import { generateShoppersStopListing } from "./shoppersstop/ShoppersStopListing";
+import { generateNykaaTopListing } from "./nykaa/NykaaTops";
+import { generateNykaaShirtListing } from "./nykaa/NykaaShirts";
+import { generateNykaaDressListing } from "./nykaa/NkyaaDresses";
+import { generateNykaaJackeAndShrugeListing } from "./nykaa/NykaaJackets";
 
 const Products = () => {
   const { products, loading } = useGlobalContext();
@@ -32,22 +36,6 @@ const Products = () => {
 
   
 
-  // const buttons = [
-  //   { name: "Nykaa", action:  () => generateNykaaListing(selectedData) },
-  //   { name: "Myntra", action:  () => generateShopifyListing() },
-  //   { name: "Shopify", action:  () => generateShopifyListing(selectedData) },
-  //   { name: "Ajio", action:  () => generateAjioShirtListing(selectedData) },
-  //   { name: "Tatacliq", action:  () => generateNykaaListing() },
-  //   { name: "Shoppersstop", action:  () => generateNykaaListing() },
-  //   { name: "Nykaa +", action:  () => generateNykaaListing() },
-  //   { name: "Myntra +", action:  () => generateNykaaListing() },
-  //   { name: "Ajio +", action:  () => generateNykaaListing() },
-  //   { name: "Tatacliq +", action:  () => generateNykaaListing() },
-  //   { name: "Shoppersstop +", action:  () => generateNykaaListing() },
-  //   { name: "Edit", action:  () => generateNykaaListing() },
-  //   { name: "Delete", action:  () => generateNykaaListing() },
-  //   { name: "Update", action:  () => generateNykaaListing() },
-  // ];
 
   const categories = [
     { name: "AJIO TOP" ,action: ()=>generateAjioTopstListing(selectedData)},
@@ -68,196 +56,245 @@ const Products = () => {
     { name: "MYNTRA PLAZOS & PANTS" },
   ];
 
+
+  const nykaaCategory = [
+    {name:"NYKAA TOP",action:()=>generateNykaaTopListing(selectedData)},
+    {name:"NYKAA SHIRT" , action:()=>generateNykaaShirtListing(selectedData)},
+    {name:"NYKAA DRESS" , action:()=>generateNykaaDressListing(selectedData)},
+    {name:"NYKAA JACKET", action:()=> generateNykaaJackeAndShrugeListing(selectedData)},
+    {name:"NYKAA SKIRT" , action:()=> alert("Nykaa skirt")},
+    {name:"NYKAA CO-ORDS",action:()=>alert("Nykaa co-ords set")}
+  ]
+
+
+
   const channels = [
     { name: "TATACLIQ",action:()=>generateTatacliqListing(selectedData) },
     { name: "SHOPPERSSTOP",action:()=>generateShoppersStopListing(selectedData) },
-    // { name: "SHOPIFY",action:()=>generateShopifyListing(selectedData) },
     { name: "SHOPIFY",action:()=>generateShopifyListingReport(selectedData)},
 
-    { name: "NYKAA",action:()=>generateNykaaListing(selectedData) },
   ];
 
   return (
-    <div>
-        <h3 className="text-xl font-semibold mb-2 text-blue-400">Action Buttons </h3>
-      <div className="p-4 flex gap-4 items-center justify-center bg-gray-200 rounded-md shadow-[6px] ">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+  {/* Header Section */}
+  <div className="mb-6">
+    <h3 className="text-xl font-semibold text-gray-800 mb-4">Product Catalogue</h3>
+    
+    {/* Action Buttons Section */}
+    <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-100">
+      <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Category Filters</h4>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* Ajio Category */}
         <div>
-         
+          <label className="block text-xs font-medium text-gray-700 mb-1">Ajio Category</label>
           <select
-            className="mt-1 block p-2 cursor-pointer border  bg-white border-gray-200 rounded-lg focus:ring focus:ring-indigo-300"
+            className="w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
             value={selectedCategory}
             onChange={(e) => {
               const selected = categories.find((item) => item.name === e.target.value);
               setSelectedCategory(e.target.value);
-              if (selected && selected.action) {
-                selected.action();
-              }
+              if (selected?.action) selected.action();
             }}
           >
-            <option value="">-- Choose Ajio category --</option>
-            {categories.map((item, index) => (
-              <option key={index} value={item.name} onClick={item.action}  >
-                
-
+            <option value="">Select Ajio category</option>
+            {categories.map((item) => (
+              <option key={item.name} value={item.name}>
                 {item.name}
-                
               </option>
             ))}
           </select>
         </div>
 
-        {/* MYNTRA CATEGORY BUTTONS  */}
+        {/* Nykaa Category */}
         <div>
-         
+          <label className="block text-xs font-medium text-gray-700 mb-1">Nykaa Category</label>
           <select
-            className="mt-1 block p-2 border cursor-pointer rounded-lg bg-white border-gray-200 focus:ring focus:ring-indigo-300"
+            className="w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
+            value={selectedCategory}
+            onChange={(e) => {
+              const selected = nykaaCategory.find((item) => item.name === e.target.value);
+              setSelectedCategory(e.target.value);
+              if (selected?.action) selected.action();
+            }}
+          >
+            <option value="">Select Nykaa category</option>
+            {nykaaCategory.map((item) => (
+              <option key={item.name} value={item.name}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Myntra Category */}
+        <div>
+          <label className="block text-xs font-medium text-gray-700 mb-1">Myntra Category</label>
+          <select
+            className="w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="" className="cursor-pointer">-- Choose Myntra category --</option>
-            {myntraCategory.map((item, index) => (
-              <option key={index} value={item.name} className="cursor-pointer">
+            <option value="">Select Myntra category</option>
+            {myntraCategory.map((item) => (
+              <option key={item.name} value={item.name}>
                 {item.name}
               </option>
             ))}
           </select>
         </div>
 
+        {/* Channel Selector */}
         <div>
-          
+          <label className="block text-xs font-medium text-gray-700 mb-1">Sales Channel</label>
           <select
-            className="mt-1 block p-2 border rounded-lg  bg-white border-gray-200 focus:ring focus:ring-indigo-300"
+            className="w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 px-3 border"
             value={selectedChannel}
             onChange={(e) => {
               const selected = channels.find((item) => item.name === e.target.value);
               setSelectedCategory(e.target.value);
-              if (selected && selected.action) {
-                selected.action();
-              }
+              if (selected?.action) selected.action();
             }}
           >
-            <option value="">-- Choose a channel --</option>
-            {channels.map((item, index) => (
-              <option key={index} value={item.name}>
+            <option value="">Select channel</option>
+            {channels.map((item) => (
+              <option key={item.name} value={item.name}>
                 {item.name}
               </option>
             ))}
           </select>
         </div>
       </div>
+        </div>
+        <div className="flex gap-3 items-center ">
+          <GlobalFilter />
+          <Link to="/upload-product" className="truncate bg-blue-400 text-white hover:bg-blue-300 duration-75 py-2 w-65 px-4 rounded-md shadow ">Upload New Products </Link>
+        </div>
+    
+  </div>
 
-      <hr className="my-3 text-gray-300" />
-
-      <GlobalFilter />
-      {/* Table */}
-      <div className="overflow-x-auto text-[14px]">
-        <table className="min-w-full bg-white border border-gray-50">
-          <thead>
-            <tr className="bg-gray-100 border-b">
-              <th className="p-2 border-gray-200 border">
-                <input
-                  type="checkbox"
-                  onChange={(e) => {
-                    setSelectedData(e.target.checked ? products : []);
-                  }}
-                  checked={selectedData.length === products.length}
-                />
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Product Id
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Style Number
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Style Type
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Style Name
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Style Image
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Pattern Number
-              </th>
-              <th className="p-2 truncate border-gray-200 border">MRP</th>
-              <th className="p-2 truncate border-gray-200 border">Color</th>
-              <th className="p-2 truncate border-gray-200 border">Fabric</th>
-              <th className="p-2 truncate border-gray-200 border">Closure</th>
-              <th className="p-2 truncate border-gray-200 border">
-                Front Length
-              </th>
-              <th className="p-2 truncate border-gray-200 border">
-                Sleeve Length
-              </th>
+  {/* Table Section */}
+  <div className="overflow-hidden border border-gray-200 rounded-lg">
+    <div className="">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-10">
+              <input
+                type="checkbox"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                onChange={(e) => setSelectedData(e.target.checked ? products : [])}
+                checked={selectedData.length === products.length && products.length > 0}
+              />
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              ID
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Style Number
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Type
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Name
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Image
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Pattern
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              MRP
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Color
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Fabric
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Closure
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Front Length
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Sleeve Length
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {loading ? (
+            <tr>
+              <td colSpan="13" className="px-6 py-4 text-center">
+                <div className="flex justify-center items-center space-x-2">
+                  <svg className="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Loading products...</span>
+                </div>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan="13" className="text-center animate-pulse p-4">
-                  Loading...
+          ) : (
+            products.map((product, i) => (
+              <tr key={product.style_number} className="hover:bg-gray-50">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    onChange={() => handleCheckboxChange(product)}
+                    checked={selectedData.includes(product)}
+                  />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {i + 1}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {product.style_number}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {product.style_type}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {product.style_name}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hover:text-blue-800">
+                  <a href={product.style_image} target="_blank" rel="noopener noreferrer" className="truncate max-w-xs block">
+                    View Image
+                  </a>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {product.pattern_number}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  ₹{product.mrp}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {product.color}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {product.fabric}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 truncate max-w-xs">
+                  {product.closure}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {product.front_length}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {product.sleeve_length}
                 </td>
               </tr>
-            ) : (
-              products.map((product, i) => (
-                <tr
-                  key={product.style_number}
-                  className="hover:bg-gray-100 duration-75 ease-in text-center"
-                >
-                  <td>
-                    <input
-                      type="checkbox"
-                      onChange={() => handleCheckboxChange(product)}
-                      checked={selectedData.includes(product)}
-                    />
-                  </td>
-                  <td className="p-2 border border-gray-200">{i + 1}</td>
-                  <td className="p-2 border border-gray-200">
-                    {product.style_number}
-                  </td>
-                  <td className="p-2 border border-gray-200">
-                    {product.style_type}
-                  </td>
-                  <td className="p-2 border border-gray-200 ">
-                    {product.style_name}
-                  </td>
-                  <td className="p-2 border border-gray-200  grid items-center justify-center ">
-                    <Link
-                      to={product.style_image}
-                      target="_blank"
-                      className=" text-blue-600 truncate"
-                    >
-                      {product.style_image}
-                    </Link>
-                  </td>
-                  <td className="p-2 border border-gray-200">
-                    {product.pattern_number}
-                  </td>
-                  <td className="p-2 border border-gray-200">{product.mrp}</td>
-                  <td className="p-2 border border-gray-200">
-                    {product.color}
-                  </td>
-                  <td className="p-2 border border-gray-200">
-                    {product.fabric}
-                  </td>
-                  <td className="p-2 border border-gray-200 truncate">
-                    {product.closure}
-                  </td>
-                  <td className="p-2 border border-gray-200">
-                    {product.front_length}
-                  </td>
-                  <td className="p-2 border border-gray-200">
-                    {product.sleeve_length}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>
   );
 };
 

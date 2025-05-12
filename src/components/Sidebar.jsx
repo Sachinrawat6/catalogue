@@ -24,92 +24,14 @@ const Sidebar = () => {
       <ul className="mt-4">
         <li className="mb-2 flex gap-3 items-center">
           <AiFillProduct className="text-2xl" />
-          <Link to="/products" className="hover:text-gray-300">
+          <Link to="/" className="hover:text-gray-300">
             Products
           </Link>
         </li>
-        {/* <li className="mb-2 flex gap-3 items-center">
-          <FaList className="text-xl" />
-          <Link to="/listing/shopify" className="hover:text-gray-300">
-            Shopify Listing
-          </Link>
-        </li> */}
+       
 
         {/* Nykaa Listing with Dropdown */}
-        <li className="mb-2">
-          <div
-            className="flex items-center justify-between cursor-pointer hover:text-gray-300"
-            onClick={() => setIsNykaaOpen(!isNykaaOpen)}
-          >
-            <div className="flex gap-3 items-center">
-              <FaList className="text-xl" />
-              <span>Nykaa Listing</span>
-            </div>
-            {isNykaaOpen ? (
-              <FaChevronUp className="text-sm" />
-            ) : (
-              <FaChevronDown className="text-sm" />
-            )}
-          </div>
-
-          {/* Dropdown Links */}
-          {isNykaaOpen && (
-            <ul className="ml-6 mt-2 space-y-2">
-              <li className="mb-2 flex gap-3 items-center">
-                {" "}
-                <GiLargeDress />{" "}
-                <Link
-                  to="/nykaa-listing/dresses"
-                  className="hover:text-gray-300"
-                >
-                  Dresses
-                </Link>
-              </li>
-              <li className="mb-2 flex gap-3 items-center">
-                <IoIosShirt />
-                <Link to="/nykaa-listing/tops" className="hover:text-gray-300">
-                  Tops
-                </Link>
-              </li>
-              <li className="mb-2 flex gap-3 items-center">
-                <GiPirateCoat />
-                <Link
-                  to="/nykaa-listing/jackets"
-                  className="hover:text-gray-300"
-                >
-                  Jackets
-                </Link>
-              </li>
-              <li className="mb-2 flex gap-3 items-center">
-                <GiTShirt />
-                <Link
-                  to="/nykaa-listing/co-ords"
-                  className="hover:text-gray-300"
-                >
-                  Co-ords
-                </Link>
-              </li>
-              <li className="mb-2 flex gap-3 items-center">
-                <TbShirtFilled />
-                <Link
-                  to="/nykaa-listing/shirts"
-                  className="hover:text-gray-300"
-                >
-                  Shirts
-                </Link>
-              </li>
-              <li className="mb-2 flex gap-3 items-center">
-                <GiSkirt />
-                <Link
-                  to="/nykaa-listing/skirts"
-                  className="hover:text-gray-300"
-                >
-                  Skirts
-                </Link>
-              </li>
-            </ul>
-          )}
-        </li>
+      
 
         <li className="mb-2 flex gap-3 items-center">
           <FaCloudUploadAlt className="text-xl" />
