@@ -34,9 +34,6 @@ const Products = () => {
     );
   };
 
-  
-
-
   const categories = [
     { name: "AJIO TOP" ,action: ()=>generateAjioTopstListing(selectedData)},
     { name: "AJIO SHIRT",action:()=> generateAjioShirtListing(selectedData) },
