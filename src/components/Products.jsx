@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { generateNykaaListing } from "./ActionButton";
 import GlobalFilter from "./GlobalFilter";
-// import { generateShopifyListing } from "./shopify/ShopifyActionButton";
-import { generateShopifyListingReport } from "./shopify/ShopifyLIsting";
+import { generateShopifyListing } from "./shopify/ShopifyActionButton";
+// import { generateShopifyListingReport } from "./shopify/ShopifyLIsting";
 import generateAjioShirtListing from "./ajio/AjioShirts";
 import generateAjioTopstListing from  "./ajio/AjioTops";
 import generateAjioDressListing from "./ajio/AjioDress"
@@ -68,7 +68,7 @@ const Products = () => {
   const channels = [
     { name: "TATACLIQ",action:()=>generateTatacliqListing(selectedData) },
     { name: "SHOPPERSSTOP",action:()=>generateShoppersStopListing(selectedData) },
-    { name: "SHOPIFY",action:()=>generateShopifyListingReport(selectedData)},
+    { name: "SHOPIFY",action:()=>generateShopifyListing(selectedData)},
 
   ];
 

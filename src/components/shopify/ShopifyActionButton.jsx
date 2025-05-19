@@ -1,7 +1,6 @@
 import Papa from "papaparse";
 
 const generateShopifyListing = (selectedData) => {
-  
   const csvHeaders = [
     "Handle",
     "Command",
@@ -54,11 +53,17 @@ const generateShopifyListing = (selectedData) => {
     "Variant Inventory Policy",
     "Variant Fulfillment Service",
     "Variant Inventory Qty",
-    "Variant Inventory Adjust"
+    "Variant Inventory Adjust",
+    "Metafield:custom.fabric [string]",
+    "Metafield:custom.pattern [string]",
+    "Metafield:custom.fit [string]",
+    "Metafield:custom.sleeve [string]",
+    "Metafield:custom.lining [string]",
+    "Metafield:custom.wash_care [string]",
+    "Metafield:custom.transparency [string]",
+    "Metafield:custom.closure [string]",
   ];
-  
-  
-  
+
   const sizeMapping = {
     XXS: "XXS",
     XS: "XS",
@@ -77,14 +82,12 @@ const generateShopifyListing = (selectedData) => {
   const csvData = selectedData.flatMap((product) =>
     sizes.map((size) => {
       const mappedSize = sizeMapping[size]; // Convert size to 2XL, 3XL, etc.
-     
 
-   
       return {
-        Handle: product.style_name.trim().toLowerCase().replace(/\s+/g,"-"),
+        Handle: product.style_name.trim().toLowerCase().replace(/\s+/g, "-"),
         Command: "MERGE",
         Title: product.style_name || "",
-        "Body HTML": product.description ||"",
+        "Body HTML": product.description || "",
         Vendor: "Qurvii",
         Type: product.style_type,
         Tags: `Qurvii Women, ${product.color}, ${product.pattern}, women's fashion, casual wear, women's clothing, ${product.style_type}, New Arrivals , New Arrival`,
@@ -133,12 +136,18 @@ const generateShopifyListing = (selectedData) => {
         "Variant Inventory Policy": "continue",
         "Variant Fulfillment Service": "manual",
         "Variant Inventory Qty": 6,
-        "Variant Inventory Adjust": 0
-      }
+        "Variant Inventory Adjust": 0,
+        "Metafield:custom.fabric [string]": product.fabric,
+        "Metafield:custom.pattern [string]": product.pattern,
+        "Metafield:custom.fit [string]": product.fit,
+        "Metafield:custom.sleeve [string]": product.sleeve_length_type,
+        "Metafield:custom.lining [string]": product?.lining || "",
+        "Metafield:custom.wash_care [string]": product.care_instruction,
+        "Metafield:custom.transparency [string]": product?.transparency || "",
+        "Metafield:custom.closure [string]": product?.closure || "",
+      };
     })
   );
-
-    
 
   const csv = Papa.unparse({
     fields: csvHeaders,
