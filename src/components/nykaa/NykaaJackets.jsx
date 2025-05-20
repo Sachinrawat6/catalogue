@@ -593,7 +593,9 @@ const generateNykaaJackeAndShrugeListing = (selectedData) => {
       // Jackets subcategory mapping 
       const jacketSubcategoryMapping = {
         Jacket:"Coat",
-        Coat:"Coat"
+        Coat:"Coat",
+        Shrug:"Shrug",
+        Shrugs:"Shrug"
       }
 
 
@@ -636,7 +638,7 @@ const generateNykaaJackeAndShrugeListing = (selectedData) => {
         "Collections Function": product.collections_function || "",
         "Pocket Description": product.pocket_description || "",
         "Type of Work":"",
-        "Jackets and Coats Subcategory":`${jacketSubcategoryMapping[product.style_type]}s`,
+        "Jackets and Coats Subcategory":`${jacketSubcategoryMapping[product.style_type]}s ` || "",
         Closure: product.closure || "",
         Fit: product.fit || "",
         "Model details": "Model is 5ft 9in tall and is wearing size XS",
