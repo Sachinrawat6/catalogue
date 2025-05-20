@@ -217,7 +217,7 @@ const generateNykaaJackeAndShrugeListing = (selectedData) => {
   const sizes = Object.keys(sizeMapping); // ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL", "XXXXXL"]
 
   const csvData = selectedData
-  .filter((product)=>product.style_type==="Coat" ||product.style_type==="Jacket"  )
+  .filter((product)=>product.style_type==="Coat" ||product.style_type==="Jacket"  ||product.style_type==="Shrug" ||product.style_type==="Shrugs"  )
   .flatMap((product) =>
     sizes.map((size) => {
       const mappedSize = sizeMapping[size]; // Convert size to 2XL, 3XL, etc.
