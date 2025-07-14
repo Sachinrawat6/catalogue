@@ -217,7 +217,7 @@ const generateNykaaDressListing = (selectedData) => {
   const sizes = Object.keys(sizeMapping); // ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL", "XXXXL", "XXXXXL"]
 
   const csvData = selectedData
-  .filter((product)=>product.style_type==="Dress" ||product.style_type==="Kaftan"  )
+  .filter((product)=>product.style_type==="Dress" ||product.style_type==="Kaftan" || product.style_type.toLowerCase().includes("shirt dress") )
   .flatMap((product) =>
     sizes.map((size) => {
       const mappedSize = sizeMapping[size]; // Convert size to 2XL, 3XL, etc.
