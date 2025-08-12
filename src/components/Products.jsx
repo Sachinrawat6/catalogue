@@ -19,6 +19,7 @@ import { generateNykaaShirtListing } from "./nykaa/NykaaShirts";
 import { generateNykaaDressListing } from "./nykaa/NkyaaDresses";
 import { generateNykaaJackeAndShrugeListing } from "./nykaa/NykaaJackets";
 import { generateMyntraDressListingFile } from "./myntra/dress/MyntraDress";
+import { generateMyntraShirtListingFile } from "./myntra/shirt/MyntraShirt";
 
 const Products = () => {
   const { products, loading } = useGlobalContext();
@@ -47,7 +48,7 @@ const Products = () => {
 
   const myntraCategory = [
     { name: "MYNTRA TOP" },
-    { name: "MYNTRA SHIRT", },
+    { name: "MYNTRA SHIRT", action: () => generateMyntraShirtListingFile(selectedData) },
     { name: "MYNTRA DRESS", action: () => generateMyntraDressListingFile(selectedData) },
     { name: "MYNTRA SKIRT" },
     { name: "MYNTRA JACKETS" },

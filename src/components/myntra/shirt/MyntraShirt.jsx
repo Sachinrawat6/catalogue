@@ -134,15 +134,15 @@ const Patterns_Values = [
     "Colourblocked",
     "Dyed"
 ];
-
+const Fit_Shirts = ["Regular Fit", "Slim Fit", "Skinny Fit", "Tailored Fit", "Boxy"]
 const Closure_Values = ["Zip", "Concealed Zip", "Button", "Hook and Eye", "NA"];
+const Weave_Pattern = ["Denim", "Chambray", "Oxford", "Twill", "Regular", "Corduroy", "Knitted", "Flannel", "Seersucker"];
 
 
 
 
 
-
-const generateMyntraDressListingFile = (selectedData) => {
+const generateMyntraShirtListingFile = (selectedData) => {
 
 
 
@@ -188,56 +188,54 @@ const generateMyntraDressListingFile = (selectedData) => {
         "addedDate",
         "Color Variant GroupId",
         "Fabric",
-        "Occasion",
-        "Shape",
-        "Neck",
+        "Collar",
+        "Sleeve Length",
+        "Sleeve Styling",
         "Pattern",
+        "Fit",
+        "Occasion",
+        "Weave Pattern",
         "Fabric 2",
         "Fabric 3",
-        "Length",
-        "Sleeve Length",
-        "Knit or Woven",
-        "Hemline",
-        "Print or Pattern Type",
+        "Brand Fit Name",
         "Surface Styling",
-        "Body Shape ID",
+        "Length",
+        "Hemline",
+        "Placket",
+        "Print or Pattern Type",
         "Main Trend",
-        "Sleeve Styling",
-        "Transparency",
-        "Fabric Type",
-        "Lining",
         "Wash Care",
+        "Placket Length",
+        "Cuff",
+        "Transparency",
+        "Pocket Type",
         "Body or Garment Size",
-        "Closure",
-        "Add-Ons",
-        "Stitch",
-        "Character",
-        "Sustainable",
         "Number of Pockets",
-        "Multipack Set",
+        "Stitch",
+        "Add-Ons",
+        "Sustainable",
+        "Character",
         "Number of Items",
+        "Features",
         "Net Quantity Unit",
         "Theme",
         "Contact Brand or Retailer for pre-sales product queries",
         "Where-to-wear",
         "Style Tip",
-        "Care for me",
         "Collection Name",
         "Package Contains",
         "BIS Expiry Date",
         "BIS Certificate Image URL",
         "BIS Certificate Number",
         "Net Quantity",
+        "Across Shoulder ( Inches )",
         "Bust ( Inches )",
         "Chest ( Inches )",
         "Front Length ( Inches )",
-        "Hips ( Inches )",
-        "Waist ( Inches )",
-        "Across Shoulder ( Inches )",
         "Sleeve-Length ( Inches )",
         "To Fit Bust ( Inches )",
-        "To Fit Hip ( Inches )",
         "To Fit Waist ( Inches )",
+        "Waist ( Inches )",
         "Front Image",
         "Side Image",
         "Back Image",
@@ -246,6 +244,7 @@ const generateMyntraDressListingFile = (selectedData) => {
         "Additional Image 1",
         "Additional Image 2"
     ];
+
 
     const sizeMapping = {
         XXS: "XXS",
@@ -264,7 +263,7 @@ const generateMyntraDressListingFile = (selectedData) => {
 
         const sizes = Object.keys(sizeMapping);
         const csvData = selectedData
-            .filter((product) => product.style_type === "Dress" || product.style_type === "Kaftan" || product.style_type.toLowerCase().includes("shirt dress"))
+            .filter((product) => product.style_type.toLowerCase().trim() === "shirt")
             .flatMap((product, index) =>
 
 
@@ -442,6 +441,15 @@ const generateMyntraDressListingFile = (selectedData) => {
                     // **************************** end of sleeve length mapping ************************************
 
 
+                    // **************************** start of fit mapping ************************************
+                    let mappedFit = "Regular Fit";
+                    for (const fit of Fit_Shirts) {
+                        if (fit.toLowerCase() === product.fit.toLowerCase().trim()) {
+                            mappedFit = fit;
+                            break;
+                        }
+                    }
+
                     // **************************** start of closure mapping ************************************
 
                     let mappedClosure = 'NA';
@@ -472,8 +480,6 @@ const generateMyntraDressListingFile = (selectedData) => {
                     }
 
                     // **************************** end of wash care mapping ************************************
-
-
 
 
                     // Dynamic Front Length Calculation
@@ -507,7 +513,7 @@ const generateMyntraDressListingFile = (selectedData) => {
                         "Country Of Origin3": "",
                         "Country Of Origin4": "",
                         "Country Of Origin5": "",
-                        "articleType": "Dresses",
+                        "articleType": "Shirts",
                         "Brand Size": mappedSize,
                         "Standard Size": mappedSize === "1XL" ? "XL" : mappedSize === "2XL" ? "XXL" : mappedSize,
                         "is Standard Size present on Label": "Yes",
@@ -522,7 +528,7 @@ const generateMyntraDressListingFile = (selectedData) => {
                         "Third Prominent Colour": "",
                         "FashionType": "Fashion",
                         "Usage": "",
-                        "Year": new Date().getFullYear() || "",
+                        "Year": Number(new Date().getFullYear()) || "",
                         "season": season,
                         "Product Details": product.description || "",
                         "styleNote": "",
@@ -533,63 +539,63 @@ const generateMyntraDressListingFile = (selectedData) => {
                         "addedDate": "",
                         "Color Variant GroupId": "",
                         "Fabric": mappedfabric,
-                        "Occasion": mappedOccasion,
-                        "Shape": "",
-                        "Neck": mappedNeckline || "",
+                        "Collar": "",
+                        "Sleeve Length": sleeveMapping[product.sleeve_length_type.trim()] || "",
+                        "Sleeve Styling": "",
                         "Pattern": mappedPattern,
+                        "Fit": mappedFit,
+                        "Occasion": mappedOccasion,
+                        "Weave Pattern": "Regular",
                         "Fabric 2": "",
                         "Fabric 3": "",
-                        "Length": "",
-                        "Sleeve Length": sleeveMapping[product.sleeve_length_type.trim()] || "",
-                        "Knit or Woven": "Woven",
-                        "Hemline": "",
-                        "Print or Pattern Type": mappedPattern,
+                        "Brand Fit Name": "Comfort",
                         "Surface Styling": "",
-                        "Body Shape ID": "",
+                        "Length": "",
+                        "Hemline": "",
+                        "Placket": "",
+                        "Print or Pattern Type": mappedPattern,
                         "Main Trend": "",
-                        "Sleeve Styling": "",
-                        "Transparency": "Opaque",
-                        "Fabric Type": mappedfabricType,
-                        "Lining": product.lining?.toLowerCase().includes("without") ? "NA" : "Has a lining",
                         "Wash Care": mappedWashCare,
+                        "Placket Length": "",
+                        "Cuff": "",
+                        "Transparency": "Opaque",
+                        "Pocket Type": "",
                         "Body or Garment Size": "To-Fit Denotes Body Measurements in",
-                        "Closure": mappedClosure,
-                        "Add-Ons": "NA",
-                        "Stitch": "",
-                        "Character": "",
-                        "Sustainable": "",
                         "Number of Pockets": "NA",
-                        "Multipack Set": "NA",
+                        "Stitch": "",
+                        "Add-Ons": "NA",
+                        "Sustainable": "",
+                        "Character": "",
                         "Number of Items": 1,
+                        "Features": "",
                         "Net Quantity Unit": "Piece",
                         "Theme": "",
                         "Contact Brand or Retailer for pre-sales product queries": "",
                         "Where-to-wear": "",
                         "Style Tip": "",
-                        "Care for me": "",
                         "Collection Name": "",
-                        "Package Contains": "1 Dress",
+                        "Package Contains": "1 Shirt",
                         "BIS Expiry Date": "",
                         "BIS Certificate Image URL": "",
                         "BIS Certificate Number": "",
                         "Net Quantity": 1,
+                        "Across Shoulder ( Inches )": sizeData[size]?.[0] ?? "",
                         "Bust ( Inches )": sizeData[size]?.[1] ?? "",
                         "Chest ( Inches )": sizeData[size]?.[2] ?? "",
                         "Front Length ( Inches )": addFrontLengthValue(sizes.indexOf(size)),
-                        "Hips ( Inches )": sizeData[size]?.[4] ?? "",
-                        "Waist ( Inches )": sizeData[size]?.[3] ?? "",
-                        "Across Shoulder ( Inches )": sizeData[size]?.[0] ?? "",
                         "Sleeve-Length ( Inches )": "",
                         "To Fit Bust ( Inches )": "",
-                        "To Fit Hip ( Inches )": "",
                         "To Fit Waist ( Inches )": "",
+                        "Waist ( Inches )": sizeData[size]?.[3] ?? "",
+
                         "Front Image": "",
                         "Side Image": "",
                         "Back Image": "",
                         "Detail Angle": "",
                         "Look Shot Image": "",
                         "Additional Image 1": "",
-                        "Additional Image 2": ""
+                        "Additional Image 2": "",
+
                     };
                     return productData
                 })
@@ -603,7 +609,7 @@ const generateMyntraDressListingFile = (selectedData) => {
         const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "Myntra_Dress_listing.csv";
+        link.download = "Myntra_Shirt_listing.csv";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -613,4 +619,4 @@ const generateMyntraDressListingFile = (selectedData) => {
     }
 };
 
-export { generateMyntraDressListingFile };
+export { generateMyntraShirtListingFile };
