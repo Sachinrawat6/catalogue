@@ -139,8 +139,11 @@ const Closure_Values = ["Zip", "Concealed Zip", "Button", "Hook and Eye", "NA"];
 const Sleeve_Length_Values = ["Long Sleeves", "Short Sleeves", "Sleeveless", "Three-Quarter Sleeves"];
 
 
+
+
+
 const generateMyntraDressListingFile = (selectedData) => {
-    console.log(selectedData)
+
 
 
 
@@ -262,10 +265,16 @@ const generateMyntraDressListingFile = (selectedData) => {
         const sizes = Object.keys(sizeMapping);
         const csvData = selectedData
             .filter((product) => product.style_type === "Dress" || product.style_type === "Kaftan" || product.style_type.toLowerCase().includes("shirt dress"))
-            .flatMap((product) =>
+            .flatMap((product, index) =>
+
+
                 sizes.map((size) => {
                     const mappedSize = sizeMapping[size]; // Convert size to 2XL, 3XL, etc.
 
+
+                    // **************************** style Group id generation ************************************
+
+                    const styleGroupId = Math.floor(index) + 1;
 
                     // color mapping start here 
 
@@ -387,6 +396,7 @@ const generateMyntraDressListingFile = (selectedData) => {
                         if (product.neckline && product.neckline.toLowerCase().trim().includes(neckline.toLowerCase())) {
                             mappedNeckline = neckline;
                             break;
+
                         }
                         else if (product.neckline.toLowerCase().trim() === "classic shirt") {
                             mappedNeckline = "Shirt Collar";
@@ -394,6 +404,10 @@ const generateMyntraDressListingFile = (selectedData) => {
                         }
                         else if (product.neckline.toLowerCase().trim() === "spaghetti strap") {
                             mappedNeckline = "Shoulder Straps";
+                            break;
+                        }
+                        else if (product.neckline.toLowerCase().trim() === "v-neck" || product.neckline.toLowerCase().trim() === "v neck") {
+                            mappedNeckline = "V-Neck";
                             break;
                         }
 
@@ -452,6 +466,10 @@ const generateMyntraDressListingFile = (selectedData) => {
                             break;
                         }
                     }
+
+                    // **************************** end of wash care mapping ************************************
+
+
                     // Dynamic Front Length Calculation
                     const input = {
                         front_length: Number(product?.front_length),
@@ -470,7 +488,7 @@ const generateMyntraDressListingFile = (selectedData) => {
 
                     const productData = {
                         "styleId": "",
-                        "styleGroupId": "",
+                        "styleGroupId": styleGroupId,
                         "vendorSkuCode": `${product.style_number}-${product.color}-${mappedSize}`,
                         "vendorArticleNumber": product.style_number || "",
                         "vendorArticleName": product.style_name || "",
